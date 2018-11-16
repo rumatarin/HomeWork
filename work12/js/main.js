@@ -120,10 +120,6 @@ window.addEventListener('DOMContentLoaded', function() {
   let statusMsg = document.createElement('div');
 
   statusMsg.classList.add('status');
-  
-
-  form.addEventListener('submit', postInfo);
-  contactsForm.addEventListener('submit', postInfo);
 
   function postInfo (el) {
     el.addEventListener('submit', function(e) {
@@ -134,7 +130,7 @@ window.addEventListener('DOMContentLoaded', function() {
       request.open('POST', 'server.php');
       request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-      let formData = new FormData(contactsForm);
+      let formData = new FormData(el);
       let obj = {};
       formData.forEach(function(value, key) {
         obj[key] = value;
