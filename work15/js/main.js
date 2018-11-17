@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   // Tabs
@@ -17,13 +17,13 @@ window.addEventListener('DOMContentLoaded', function() {
   hideTabContent(1);
 
   function showTabContent(b) {
-    if(tabContent[b].classList.contains('hide')) {
+    if (tabContent[b].classList.contains('hide')) {
       tabContent[b].classList.remove('hide');
       tabContent[b].classList.add('show');
     }
   }
 
-  info.addEventListener('click', function(e) {
+  info.addEventListener('click', function (e) {
     let target = e.target;
     if (target && target.classList.contains('info-header-tab')) {
       for (let i = 0; i < tab.length; i++) {
@@ -42,15 +42,15 @@ window.addEventListener('DOMContentLoaded', function() {
 
   function getTimeRemaining(endtime) {
     let t = Date.parse(endtime) - Date.parse(new Date());
-    let seconds = Math.floor((t/1000) % 60);
-    let minutes = Math.floor((t/1000/60) % 60);
-    let hours = Math.floor((t/(1000*60*60)));
+    let seconds = Math.floor((t / 1000) % 60);
+    let minutes = Math.floor((t / 1000 / 60) % 60);
+    let hours = Math.floor((t / (1000 * 60 * 60)));
 
     return {
-      'total' : t,
-      'hours' : hours,
-      'minutes' : minutes,
-      'seconds' : seconds
+      'total': t,
+      'hours': hours,
+      'minutes': minutes,
+      'seconds': seconds
     };
   }
 
@@ -84,19 +84,19 @@ window.addEventListener('DOMContentLoaded', function() {
   let close = document.querySelector('.popup-close');
   let infoBox = document.querySelector('.info');
 
-  more.addEventListener('click', function() {
+  more.addEventListener('click', function () {
     overlay.style.display = 'block';
     this.classList.add('more-splash');
     document.body.style.overflow = 'hidden';
   });
 
-  close.addEventListener('click', function() {
+  close.addEventListener('click', function () {
     overlay.style.display = 'none';
     more.classList.remove('more-splash');
     document.body.style.overflow = 'auto';
   });
 
-  infoBox.addEventListener('click', function(e) {
+  infoBox.addEventListener('click', function (e) {
     let target = e.target;
     if (target && target.classList.contains('description-btn')) {
       overlay.style.display = 'block';
@@ -105,7 +105,7 @@ window.addEventListener('DOMContentLoaded', function() {
       console.log(this);
     }
   });
-  
+
   // Form
 
   let message = {
@@ -120,32 +120,32 @@ window.addEventListener('DOMContentLoaded', function() {
   let statusMsg = document.createElement('div');
 
   statusMsg.classList.add('status');
-  
+
 
   form.addEventListener('submit', postInfo);
   contactsForm.addEventListener('submit', postInfo);
 
-  
 
-  function postInfo (el) {
-    el.addEventListener('submit', function(e) {
+
+  function postInfo(el) {
+    el.addEventListener('submit', function (e) {
       e.preventDefault();
       el.appendChild(statusMsg);
       let formData = new FormData(el);
 
       function postData(data) {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
           let request = new XMLHttpRequest();
           request.open('POST', 'server.php');
           request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
           let obj = {};
-          formData.forEach(function(value, key) {
+          formData.forEach(function (value, key) {
             obj[key] = value;
           });
           let json = JSON.stringify(obj);
 
-          request.onreadystatechange = function() {
+          request.onreadystatechange = function () {
             if (request.readyState < 4) {
               resolve();
             } else if (request.readyState === 4) {
@@ -161,12 +161,12 @@ window.addEventListener('DOMContentLoaded', function() {
         });
       }
 
-      function clearInput () {
+      function clearInput() {
         for (let i = 0; i < input.length; i++) {
           input[i].value = '';
         }
       }
-      
+
       postData(formData)
         .then(() => statusMsg.innerHTML = message.loading)
         .then(() => statusMsg.innerHTML = message.success)
@@ -176,7 +176,7 @@ window.addEventListener('DOMContentLoaded', function() {
   }
   postInfo(form);
   postInfo(contactsForm);
-  
+
   // Slider
 
   let slideIndex = 1;
@@ -211,15 +211,15 @@ window.addEventListener('DOMContentLoaded', function() {
     showSlides(slideIndex = n);
   }
 
-  prev.addEventListener('click', function() {
+  prev.addEventListener('click', function () {
     plusSlides(-1);
   });
 
-  next.addEventListener('click', function() {
+  next.addEventListener('click', function () {
     plusSlides(1);
   });
 
-  dotsWrap.addEventListener('click', function(event) {
+  dotsWrap.addEventListener('click', function (event) {
     for (let i = 0; i < dots.length + 1; i++) {
       if (event.target.classList.contains('dot') && event.target == dots[i - 1]) {
         currentSlide(i);
@@ -239,22 +239,20 @@ window.addEventListener('DOMContentLoaded', function() {
 
   totalValue.innerHTML = 0;
 
-  persons.addEventListener('change', function() {
+  persons.addEventListener('change', function () {
     personsSum = +this.value;
-    total = (daysSum + personsSum)*4000;
+    total = (daysSum + personsSum) * 4000;
 
     if (restDays.value == '' || persons.value == '') {
       totalValue.innerHTML = 0;
     } else {
       totalValue.innerHTML = total;
     }
-
-    
   });
 
-  restDays.addEventListener('change', function() {
+  restDays.addEventListener('change', function () {
     daysSum = +this.value;
-    total = (daysSum + personsSum)*4000;
+    total = (daysSum + personsSum) * 4000;
 
     if (restDays.value == '' || persons.value == '') {
       totalValue.innerHTML = 0;
@@ -263,7 +261,7 @@ window.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  place.addEventListener('change', function() {
+  place.addEventListener('change', function () {
     if (restDays.value == '' || persons.value == '') {
       totalValue.innerHTML = 0;
     } else {
